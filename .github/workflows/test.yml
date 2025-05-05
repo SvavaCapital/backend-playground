@@ -5,6 +5,8 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  merge_group:
+    branches: [ main ]
 
 jobs:
   test:
@@ -19,12 +21,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: gradle
-    
-    - name: Sleep for 10 minutes
-      run: |
-        echo "Sleeping for 10 minutes to simulate long-running tests..."
-        sleep 600
-    
     - name: Run tests with Gradle
       uses: gradle/gradle-build-action@v2
       with:
