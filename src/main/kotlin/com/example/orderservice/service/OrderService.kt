@@ -36,11 +36,11 @@ class OrderService(private val orderRepository: OrderRepository) {
         )
     }
 
-    fun deleteOrder(id: Long) {
-        if (!orderRepository.existsById(id)) {
-            throw EntityNotFoundException("Order not found with id: $id")
+    fun deleteOrder(orderId: Long) {
+        if (!orderRepository.existsById(orderId)) {
+            throw EntityNotFoundException("Order not found with id: $orderId")
         }
-        orderRepository.deleteById(id)
+        orderRepository.deleteById(orderId)
     }
 
     fun getOrdersByCustomerEmail(email: String): List<Order> {
