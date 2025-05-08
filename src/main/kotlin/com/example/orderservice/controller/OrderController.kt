@@ -24,7 +24,7 @@ class OrderController(private val orderService: OrderService) {
 
     @GetMapping
     fun getAllOrders(): ResponseEntity<List<Order>> {
-        return ResponseEntity.ok(orderService.getAllOrders())
+        return ResponseEntity.ok(orderService.getAllOrderss())
     }
 
     @PutMapping("/{id}")
