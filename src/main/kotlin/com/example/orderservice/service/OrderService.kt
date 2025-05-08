@@ -20,7 +20,7 @@ class OrderService(private val orderRepository: OrderRepository) {
             .orElseThrow { EntityNotFoundException("Order not found with id: $id") }
     }
 
-    fun getAllOrders(): List<Order> {
+    fun getAllOrderss(): List<Order> {
         return orderRepository.findAll()
     }
 
