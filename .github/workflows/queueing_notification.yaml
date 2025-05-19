@@ -1,0 +1,20 @@
+name: Notify Merge Queue Events
+
+on:
+  pull_request:
+    types: [enqueued, closed, dequeued]
+  workflow_run:
+    types: [completed]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack notification
+        if: github.event.action == 'enqueued' || github.event.action == 'closed' || github.event.action == 'dequeued'
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{
+              "text": "PR #${{ github.event.pull_request.number }} [${{ github.event.pull_request.title }}] was *${{ github.event.action }}* by ${{ github.actor }}"
+            }' \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
