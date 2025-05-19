@@ -50,4 +50,8 @@ class OrderService(private val orderRepository: OrderRepository) {
     fun getOrdersByStatus(status: OrderStatus): List<Order> {
         return orderRepository.findByStatus(status)
     }
+
+    fun testing() : Boolean{
+        return true
+    }
 } 
