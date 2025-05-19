@@ -3,8 +3,6 @@ name: Notify Merge Queue Events
 on:
   pull_request:
     types: [enqueued, closed, dequeued]
-  workflow_run:
-    types: [completed]
 
 jobs:
   notify:
