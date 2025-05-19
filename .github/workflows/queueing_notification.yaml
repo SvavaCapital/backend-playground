@@ -12,9 +12,21 @@ jobs:
     steps:
       - name: Send Slack notification
         if: github.event.action == 'enqueued' || github.event.action == 'closed' || github.event.action == 'dequeued'
-        run: |
-          curl -X POST -H 'Content-type: application/json' \
-            --data '{
-              "text": "PR #${{ github.event.pull_request.number }} [${{ github.event.pull_request.title }}] was *${{ github.event.action }}* by ${{ github.actor }}"
-            }' \
-            ${{ secrets.SLACK_WEBHOOK_URL }}
+        id: infra-slack-alert
+        uses: SvavaCapital/slack-github-action@v1.24.0
+        with:
+          channel-id: "#github-queue-updates"
+          payload: |
+              {
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "PR #${{ github.event.pull_request.number }} [${{ github.event.pull_request.title }}] was *${{ github.event.action }}* by ${{ github.actor }}"
+                    }
+                  }
+                ]
+              }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
