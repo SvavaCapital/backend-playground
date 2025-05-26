@@ -51,7 +51,7 @@ class OrderService(private val orderRepository: OrderRepository) {
         return orderRepository.findByStatus(status)
     }
 
-    fun testing() : Boolean{
+    fun testing1() : Boolean{
         return true
     }
 } 
