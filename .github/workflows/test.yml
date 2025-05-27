@@ -30,4 +30,4 @@ jobs:
       run: |
         echo "name=${{ github.head_ref }}"
         echo "name=${{ github.event.merge_group.head_ref }}"
-        echo "branch_name=${BRANCH_NAME##*/}"
+        echo "name=${name##*/}"
