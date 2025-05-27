@@ -29,6 +29,6 @@ jobs:
       id: branch_name
       run: |
         echo "name=${{ github.head_ref }}"
-        echo "name=${{ github.event.merge_group.head_ref }}"
-        BRANCH_NAME=$(echo "$name" | awk -F'/' '{print $NF}')
-         echo "Extracted branch name: '$BRANCH_NAME'"
+        FULL_REF="${{ github.event.merge_group.head_ref }}"
+        BRANCH_NAME="${FULL_REF##*/}"
+        echo "Extracted branch name: '$BRANCH_NAME'"
