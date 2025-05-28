@@ -26,3 +26,13 @@ jobs:
       uses: gradle/gradle-build-action@v2
       with:
         arguments: build -x test
+
+  # Status check job that merge queue will wait for
+  build-status:
+    needs: [build]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check build results
+        run: |
+          echo '${{ toJSON(needs) }}' | jq -e 'to_entries | all(.value.result == "success")'
