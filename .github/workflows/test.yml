@@ -25,10 +25,22 @@ jobs:
       uses: gradle/gradle-build-action@v2
       with:
         arguments: test
-    - name: branch name
-      id: branch_name
+    - name: Test failure
       run: |
-        echo "name=${{ github.head_ref }}"
-        FULL_REF="${{ github.event.merge_group.head_ref }}"
-        BRANCH_NAME="${FULL_REF##*/}"
-        echo "Extracted branch name: '$BRANCH_NAME'"
+        if [ "${{ github.event_name }}" = "merge_group" ]; then
+          echo "This step is designed to fail for merge_group events"
+          exit 1
+        else
+          echo "Skipping failure for non-merge_group events"
+        fi
+
+  # Status check job that merge queue will wait for
+  test-status:
+    needs: [test]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check test results
+        run: |
+          echo '${{ toJSON(needs) }}' | jq -e 'to_entries | all(.value.result == "success")'
+    
