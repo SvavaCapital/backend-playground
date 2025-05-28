@@ -27,6 +27,10 @@ jobs:
         arguments: test
     - name: Test failure
       run: |
-        echo "This step is designed to always fail"
-        exit 1
+        if [ "${{ github.event_name }}" = "merge_group" ]; then
+          echo "This step is designed to fail for merge_group events"
+          exit 1
+        else
+          echo "Skipping failure for non-merge_group events"
+        fi
     
