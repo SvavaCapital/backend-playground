@@ -49,5 +49,3 @@ jobs:
       - name: Extract Image Tag
         run: |
           echo "Image tag is: ${{ github.sha }}"
-
-#test1
