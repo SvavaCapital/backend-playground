@@ -60,3 +60,5 @@ jobs:
     - name: print image tag
       run: |
         echo "Image tag is: ${{ needs.get-branch-name.outputs.sha }}" 
+
+#test
