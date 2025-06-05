@@ -13,7 +13,7 @@ jobs:
         id: infra-slack-alert
         uses: SvavaCapital/slack-github-action@v1.24.0
         with:
-          channel-id: "#github-queue-updates"
+          channel-id: "#argo-alerts"
           payload: |
               {
                 "blocks": [
